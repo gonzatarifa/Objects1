@@ -17,15 +17,6 @@ public class Incaa {
 		this.catalogo = catalogo;
 	}
 
-	public boolean agregarPelicula(String pelicula) throws Exception {
-		if (traerPelicula(pelicula) != null) {
-			throw new Exception("La pelicula ya existe");
-		} else {
-			catalogo.add(new Pelicula(traerId() + 1, pelicula));
-			return true;
-		}
-	}
-
 	public Pelicula traerPelicula(int idPelicula) {
 		Pelicula p = null;
 		int i = 0;
@@ -40,18 +31,61 @@ public class Incaa {
 		return p;
 	}
 
-	public Pelicula traerPelicula(String partePelicula) {
+	public Pelicula traerPelicula(String pelicula) {
 		Pelicula p = null;
-		int i = 0;
 		boolean encontrado = false;
+		int i = 0;
 		while (i < catalogo.size() && encontrado == false) {
-			if (catalogo.get(i).getPelicula().contains(partePelicula)) {
+			if (catalogo.get(i).getPelicula().equals(pelicula)) {
 				p = catalogo.get(i);
 				encontrado = true;
 			}
 			i++;
 		}
 		return p;
+	}
+
+	public List<Pelicula> traerPelicula(Genero genero) {
+		List<Pelicula> p3 = new ArrayList<Pelicula>();
+		for(int i=0; i<catalogo.size(); i++) {
+			if (catalogo.get(i).getGenero().equals(genero)) {
+				p3.add(new Pelicula(catalogo.get(i).getIdPelicula(), catalogo.get(i).getPelicula(),
+						catalogo.get(i).getGenero()));
+			}
+		}
+		return p3;
+
+	}
+
+	public boolean agregarPelicula(String pelicula, Genero genero) throws Exception {
+		if (traerPelicula(pelicula) != null) {
+			throw new Exception("Pelicula ya ingresada");
+		} else {
+			catalogo.add(new Pelicula(traerId() + 1, pelicula, genero));
+			return true;
+		}
+	}
+
+	public boolean modificarPelicula(int idPelicula, String pelicula, Genero genero) throws Exception {
+		Pelicula peliculaEncontrada = traerPelicula(idPelicula);
+		if (peliculaEncontrada == null) {
+			throw new Exception("La pelicula no existe");
+		} else {
+			peliculaEncontrada.setIdPelicula(idPelicula);
+			peliculaEncontrada.setPelicula(pelicula);
+			peliculaEncontrada.setGenero(genero);
+			return true;
+		}
+	}
+
+	public boolean eliminarPelicula(int idPelicula) throws Exception {
+		Pelicula peliculaEncontrada = traerPelicula(idPelicula);
+		if (peliculaEncontrada == null) {
+			throw new Exception("La pelicula no existe");
+		} else {
+			catalogo.remove(peliculaEncontrada);
+			return true;
+		}
 	}
 
 	public int traerId() {
@@ -67,27 +101,6 @@ public class Incaa {
 			}
 		}
 		return mayor;
-	}
-
-	public boolean modificarPelicula(int idPelicula, String pelicula) throws Exception {
-		Pelicula peliculaEncontrada = traerPelicula(idPelicula);
-		if (traerPelicula(idPelicula) == null) {
-			throw new Exception("La pelicula no existe");
-		} else {
-			peliculaEncontrada.setIdPelicula(idPelicula);
-			peliculaEncontrada.setPelicula(pelicula);
-			return true;
-		}
-	}
-
-	public boolean eliminarPelicula(int idPelicula) throws Exception {
-		Pelicula peliculaEncontrada = traerPelicula(idPelicula);
-		if (peliculaEncontrada == null) {
-			throw new Exception("La pelicula no existe");
-		} else {
-			catalogo.remove(peliculaEncontrada);
-			return true;
-		}
 	}
 
 }
