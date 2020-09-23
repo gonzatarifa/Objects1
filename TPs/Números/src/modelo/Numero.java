@@ -60,7 +60,7 @@ public class Numero {
 	public double convertirDouble() {
 		double aDouble;
 		String aString;
-		aString = String.valueOf(n);
+		aString = convertirAString();
 		aDouble = Double.parseDouble(aString);
 		return aDouble;
 	}

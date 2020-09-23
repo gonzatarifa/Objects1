@@ -30,6 +30,7 @@ public class TestPuntoCirculo {
 		System.out.println("Calcular area circulo1: " + c1.calcularArea());
 		System.out.println("Calcular area circulo2: " + c2.calcularArea());
 		System.out.println("Calcular distancia: " + c1.calcularDistancia(c2));
+	
 	}
 
 }

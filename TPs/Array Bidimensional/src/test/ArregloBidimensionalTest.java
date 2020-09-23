@@ -21,6 +21,6 @@ public class ArregloBidimensionalTest {
 		System.out.println(Arrays.deepToString(matriz1.multiplicar(3)));
 		System.out.println("Multiplicacion de matrices: ");
 		System.out.println(Arrays.deepToString(matriz1.multiplicar(matrizB)));
-	}
 
+	}
 }

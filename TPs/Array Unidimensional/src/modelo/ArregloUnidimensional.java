@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Arrays;
+
 public class ArregloUnidimensional {
 	private int[] vector;
 
@@ -100,4 +102,10 @@ public class ArregloUnidimensional {
 		}
 		return mayor;
 	}
+
+	@Override
+	public String toString() {
+		return "ArregloUnidimensional [vector=" + Arrays.toString(vector) + "]";
+	}
+	
 }

@@ -13,7 +13,9 @@ public class TestPersonaEmpleadoCliente {
 		LocalDate fecha2 = LocalDate.now();
 		LocalDate fecha3 = LocalDate.of(1995, 12, 20);
 		LocalDate fecha4 = LocalDate.of(1987, 03, 27);
+		
 		Empleado empleado1 = new Empleado("Martin", "Torrents", 39642511, fecha1, 123456789, 30000);
+	    Persona persona1 = new Empleado("Martin", "Torrents", 39642511, fecha1, 123456789, 30000);
 		Cliente cliente1 = new Cliente("Mariano", "Ribe", 39277077, fecha3, "20-39277077-2", 3200.20f);
 		System.out.println(empleado1.getNombre() + " " + empleado1.getApellido() + " es empleado y su edad es "
 				+ empleado1.calcularEdad(fecha2));

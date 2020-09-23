@@ -27,7 +27,7 @@ public class TestSupermercado {
 		System.out.println(s1.traerProducto("Bife Angosto"));
 		System.out.println(s1.traerProducto("Langostinos"));
 		System.out.println(" ");
-		System.out.println("Modifico productos");
+		System.out.println("Modifico productos: ");
 
 		try {
 			System.out.println(s1.modificarProducto(1, "Alfajores", 30.0f));

@@ -12,5 +12,6 @@ public class TestPunto3 {
 		System.out.println("Coordenadas punto2: " + p2.toString());
 		System.out.println("Iguales: " + p1.equals(p2));
 		System.out.println("La distancia entre el punto 1 y 2 es: " + p1.calcularDistancia(p2));
+
 	}
 }

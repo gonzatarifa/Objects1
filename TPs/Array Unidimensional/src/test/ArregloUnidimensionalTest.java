@@ -10,6 +10,7 @@ public class ArregloUnidimensionalTest {
 		int[] vector = { 1, 3, 3, 2, 2, 2 };
 		ArregloUnidimensional vec = new ArregloUnidimensional(vector);
 
+		System.out.println(vec);
 		System.out.println("Menor: " + vec.traerElMenor());
 		System.out.println("Mayor: " + vec.traerElMayor());
 		System.out.println("Promedio: " + vec.calcularPromedio());
