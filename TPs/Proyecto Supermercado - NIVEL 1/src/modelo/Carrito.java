@@ -14,6 +14,13 @@ public class Carrito {
 	public Carrito() {
 	}
 
+	public Carrito(int idCarrito, LocalDate fecha, LocalTime hora) {
+		super();
+		this.idCarrito = idCarrito;
+		this.fecha = fecha;
+		this.hora = hora;
+	}
+
 	public int getIdCarrito() {
 		return idCarrito;
 	}
@@ -46,11 +53,16 @@ public class Carrito {
 		this.lstItem = lstItem;
 	}
 
+	@Override
+	public String toString() {
+		return "Carrito [idCarrito=" + idCarrito + ", fecha=" + fecha + ", hora=" + hora + ", lstItem=" + lstItem + "]";
+	}
+
 	public boolean agregarItem(Producto producto, int cantidad) {
 		if (traerItemCarrito(producto) != null) {
 			traerItemCarrito(producto).setCantidad(traerItemCarrito(producto).getCantidad() + 1);
 		} else {
-			lstItem.add(new ItemCarrito(traerId() + 1, producto, cantidad));
+			lstItem.add(new ItemCarrito(traerIdItem() + 1, producto, cantidad));
 			return true;
 		}
 		return false;
@@ -111,7 +123,7 @@ public class Carrito {
 		return ic;
 	}
 
-	public int traerId() {
+	public int traerIdItem() {
 		int mayor = 0;
 		if (lstItem.size() != 0) {
 			mayor = lstItem.get(0).getIdItem();
@@ -125,10 +137,10 @@ public class Carrito {
 		}
 		return mayor;
 	}
-	
+
 	public float calcularTotal() {
-		float total=0;
-		for(int i=0; i<lstItem.size(); i++) {
+		float total = 0;
+		for (int i = 0; i < lstItem.size(); i++) {
 			total = total + lstItem.get(i).calcularSubTotal();
 		}
 		return total;

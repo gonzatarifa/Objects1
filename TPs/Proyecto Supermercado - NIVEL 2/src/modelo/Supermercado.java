@@ -37,9 +37,13 @@ public class Supermercado {
 		this.lstCarrito = lstCarrito;
 	}
 
-	public boolean agregarProducto(String producto, float precio) {
-		lstProducto.add(new Producto(traerIdProducto() + 1, producto, precio));
-		return true;
+	public boolean agregarProducto(String producto, float precio) throws Exception {
+		if (traerProducto(producto) != null) {
+			throw new Exception("El producto ya existe");
+		} else {
+			lstProducto.add(new Producto(traerIdProducto() + 1, producto, precio));
+			return true;
+		}
 	}
 
 	public Producto traerProducto(int idProducto) {
@@ -70,21 +74,30 @@ public class Supermercado {
 		return p;
 	}
 
-	public boolean eliminarProducto(int idProducto) {
+	public boolean eliminarProducto(int idProducto) throws Exception {
 		Producto productoEncontrado = traerProducto(idProducto);
-		lstProducto.remove(productoEncontrado);
-		return true;
+		Carrito carritoEncontrado = traerCarrito(productoEncontrado);
+		if (carritoEncontrado != null || productoEncontrado == null) {
+			throw new Exception("Producto no encontrado o se encuentra en otro carrito");
+		} else {
+			lstProducto.remove(productoEncontrado);
+			return true;
+		}
 	}
 
-	public boolean agregarCliente(String cliente, long dni, String direccion) {
-		lstCliente.add(new Cliente(traerIdCliente() + 1, cliente, dni, direccion));
-		return true;
+	public boolean agregarCliente(String cliente, long dni, String direccion) throws Exception {
+		if (traerCliente(cliente) != null) {
+			throw new Exception("El cliente ya existe");
+		} else {
+			lstCliente.add(new Cliente(traerIdCliente() + 1, cliente, dni, direccion));
+			return true;
+		}
 	}
-
+	
 	public boolean eliminarCliente(int idCliente) throws Exception {
 		Cliente clienteEncontrado = traerCliente(idCliente);
-		Carrito carritoEncontrado = traerCarrito(traerIdCarrito() + 1);
-		if (clienteEncontrado == null || clienteEncontrado.getIdCliente() == carritoEncontrado.getIdCarrito()) {
+		Carrito carritoEncontrado = traerCarrito(clienteEncontrado);
+		if (clienteEncontrado == null || carritoEncontrado != null) {
 			throw new Exception("El cliente no existe o existe en otro carrito");
 		} else {
 			lstCliente.remove(clienteEncontrado);
@@ -183,6 +196,18 @@ public class Supermercado {
 		return c;
 	}
 
+	public Carrito traerCarrito(Producto producto) {
+		Carrito c = null;
+		for (int i = 0; i < lstCarrito.size(); i++) {
+			for (int j = 0; j < lstCarrito.get(i).getLstItem().size(); j++) {
+				if (lstCarrito.get(i).getLstItem().get(j).getProducto().equals(producto)) {
+					c = lstCarrito.get(i);
+				}
+			}
+		}
+		return c;
+	}
+
 	public float calcularTotal(Cliente cliente) throws Exception {
 		float total = 0;
 		boolean encontrado = false;
@@ -259,21 +284,16 @@ public class Supermercado {
 	public float calcularTotal(LocalDate fechaInicio, LocalDate fechaFin, Cliente cliente) throws Exception {
 		float total = 0;
 		boolean encontrado = false;
-		boolean estaEntreFechas = false;
 		for (int i = 0; i < lstCarrito.size(); i++) {
 			if (lstCarrito.get(i).getCliente().equals(cliente)) {
 				encontrado = true;
 				if (lstCarrito.get(i).getFecha().isBefore(fechaFin)
 						&& lstCarrito.get(i).getFecha().isAfter(fechaInicio)) {
-					estaEntreFechas = true;
 					for (int j = 0; j < lstCarrito.get(i).getLstItem().size(); j++) {
 						total = total + lstCarrito.get(i).getLstItem().get(j).calcularSubTotal();
 					}
 				}
 			}
-		}
-		if (estaEntreFechas == false) {
-			throw new Exception("no esta entre fechas");
 		}
 		if (encontrado == false) {
 			throw new Exception("El cliente no existe");

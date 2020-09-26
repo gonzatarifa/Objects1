@@ -69,14 +69,27 @@ public class Carrito {
 	}
 
 	public boolean agregarItem(Producto producto, int cantidad) {
-		lstItem.add(new ItemCarrito(traerIdItemCarrito() + 1, producto, cantidad));
-		return true;
+		ItemCarrito itemEncontrado = traerItemCarrito(producto);
+		if (itemEncontrado != null) {
+			itemEncontrado.setCantidad(itemEncontrado.getCantidad() + cantidad);
+		} else {
+			lstItem.add(new ItemCarrito(traerIdItemCarrito() + 1, producto, cantidad));
+			return true;
+		}
+		return false;
 	}
 
-	public boolean eliminarItem(Producto producto, int cantidad) {
+	public boolean eliminarItem(Producto producto, int cantidad) throws Exception {
 		ItemCarrito itemEncontrado = traerItemCarrito(producto);
-		lstItem.remove(itemEncontrado);
-		return true;
+		if (itemEncontrado == null) {
+			throw new Exception("El item no existe");
+		} else if (cantidad < itemEncontrado.getCantidad()) {
+			itemEncontrado.setCantidad(itemEncontrado.getCantidad() - cantidad);
+		} else if (itemEncontrado.getCantidad() == cantidad) {
+			lstItem.remove(itemEncontrado);
+			return true;
+		}
+		return false;
 	}
 
 	public ItemCarrito traerItemCarrito(Producto producto) {

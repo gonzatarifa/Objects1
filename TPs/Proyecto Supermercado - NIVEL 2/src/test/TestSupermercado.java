@@ -4,18 +4,30 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import modelo.Carrito;
-import modelo.ItemCarrito;
 import modelo.Supermercado;
 
 public class TestSupermercado {
 	public static void main(String[] args) {
 		Supermercado supermercado1 = new Supermercado();
 		Carrito carrito1 = new Carrito();
-		ItemCarrito item1 = new ItemCarrito();
 		System.out.println("Agrego productos: ");
-		System.out.println(supermercado1.agregarProducto("Almendras", 10.0f));
-		System.out.println(supermercado1.agregarProducto("Tomate", 3.0f));
-		System.out.println(supermercado1.agregarProducto("Cafe", 400.0f));
+		try {
+			System.out.println(supermercado1.agregarProducto("Almendras", 10.0f));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			System.out.println(supermercado1.agregarProducto("Tomate", 3.0f));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		try {
+			System.out.println(supermercado1.agregarProducto("Cafe", 400.0f));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 
 		System.out.println(" ");
 		System.out.println("Traigo productos por id: ");
@@ -90,9 +102,9 @@ public class TestSupermercado {
 		System.out.println(" ");
 		System.out.println("Agrego items carrito: ");
 		try {
-			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(1), 100));
-			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(2), 4));
-			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(3), 2));
+			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(1), 30));
+			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(2), 40));
+			System.out.println(carrito1.agregarItem(supermercado1.traerProducto(3), 50));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -135,8 +147,8 @@ public class TestSupermercado {
 		System.out.println(" ");
 		System.out.println("Calculo total por cliente: ");
 		try {
-			System.out.println(supermercado1.traerCarrito(supermercado1.traerCliente(1))
-					.agregarItem(supermercado1.traerProducto(2), 52));
+			System.out.println(supermercado1.traerCarrito(supermercado1.traerCliente(2))
+					.agregarItem(supermercado1.traerProducto(3), 2000));
 			System.out.println(supermercado1.traerCarrito(supermercado1.traerCliente(2))
 					.agregarItem(supermercado1.traerProducto(2), 40));
 			System.out.println(supermercado1.traerCarrito(supermercado1.traerCliente(3))
@@ -231,17 +243,63 @@ public class TestSupermercado {
 			System.out.println(supermercado1.calcularTotal(7, 2020, 39277077));
 			System.out.println(supermercado1.calcularTotal(8, 2020, 32830433));
 			System.out.println(supermercado1.calcularTotal(9, 2020, 42828864));
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		System.out.println(" ");
 		System.out.println("Elimino items: ");
-		System.out.println(carrito1.agregarItem(supermercado1.traerProducto(1), 100));
-		
+		try {
+			System.out.println(carrito1.eliminarItem(supermercado1.traerProducto(1), 30));
+			System.out.println(carrito1.eliminarItem(supermercado1.traerProducto(2), 40));
+			System.out.println(carrito1.eliminarItem(supermercado1.traerProducto(3), 50));
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		System.out.println(" ");
+		System.out.println("Elimino carrito: ");
+		try {
+			System.out.println(supermercado1.eliminarCarrito(1));
+			System.out.println(supermercado1.eliminarCarrito(2));
+			System.out.println(supermercado1.eliminarCarrito(3));
+			System.out.println(supermercado1.eliminarCarrito(4));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+
 		System.out.println(" ");
 		System.out.println("Elimino productos: ");
-		System.out.println(supermercado1.eliminarProducto(1));
-		System.out.println(supermercado1.eliminarProducto(2));
-		System.out.println(supermercado1.eliminarProducto(3));
+		try {
+			System.out.println(supermercado1.eliminarProducto(1));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		try {
+			System.out.println(supermercado1.eliminarProducto(2));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		try {
+			System.out.println(supermercado1.eliminarProducto(3));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		System.out.println(" ");
+		System.out.println("Elimino clientes: ");
+		try {
+			System.out.println(supermercado1.eliminarCliente(1));
+			System.out.println(supermercado1.eliminarCliente(2));
+			System.out.println(supermercado1.eliminarCliente(3));
+			System.out.println(supermercado1.eliminarCliente(4));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+
 	}
 }
