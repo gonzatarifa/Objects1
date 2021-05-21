@@ -1,2 +1,2 @@
 # Objetos1
-Repositorio para la materia Orientacion a objetos1
+Repository for the subject Object Orientation1-UNLA
